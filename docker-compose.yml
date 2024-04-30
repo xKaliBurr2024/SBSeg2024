@@ -1,0 +1,11 @@
+version: '3'
+services:
+  api:
+    image: exekaliburr-api
+    build:
+      context: api
+      dockerfile: Dockerfile
+    ports:
+      - "5001:5001"
+    security_opt:
+      - no-new-privileges:true

@@ -9,3 +9,12 @@ services:
       - "5001:5001"
     security_opt:
       - no-new-privileges:true
+  front:
+    image: exekaliburr-front
+    build:
+      context: front
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    security_opt:
+      - no-new-privileges:true

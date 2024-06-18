@@ -1,3 +1,4 @@
+from flask_cors import CORS
 from flask import Flask, request
 from subprocess import getoutput
 
@@ -51,11 +52,11 @@ def get_whois():
 
 @app.route('/banner', methods=['GET'])
 def get_banner():
-    host = request.args.get('host', None)
-    if host is None:
-        return 'Please provide a host', 400
+    url = request.args.get('url', None)
+    if url is None:
+        return 'Please provide a url', 400
 
-    banner = getoutput(f'curl -v {host}')
+    banner = getoutput(f'curl -k -v {url}')
     return banner, 200
 
 
@@ -80,4 +81,5 @@ def get_port_scan():
 
 
 if __name__ == '__main__':
+    CORS(app, origins='*')
     app.run(debug=True, port=5001, host='0.0.0.0')

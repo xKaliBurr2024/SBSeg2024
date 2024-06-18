@@ -18,7 +18,7 @@ FROM base AS production
 
 WORKDIR /app
 
-# COPY .env.local .
+COPY .env.local .
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static

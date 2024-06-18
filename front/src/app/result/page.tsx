@@ -6,8 +6,8 @@ import Image from "next/image";
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Loading from "../components/loading";
-import CustonFooter from "../components/custonFooter";
-import CustonButton from "../components/custonButton";
+import CustomFooter from "../components/customFooter";
+import CustomButton from "../components/customButton";
 import SectionButton from "../components/sectionButton";
 
 //Remover depois
@@ -24,7 +24,7 @@ export default function ResultPage(){
     const [text2, setText2] = useState("1 " + auxText);
 
     const [searchValue, setSearchValue] = useState("")
-    const optionSelected = searchParams.get('option') 
+    const optionSelected = searchParams.get('option')
     const oldSearch = searchParams.get('search')
 
     function buttonSwitch(value: number){
@@ -61,7 +61,7 @@ export default function ResultPage(){
         <main className="min-h-screen bg-slate-800 relative">
             <header className="flex flex-row justify-around text-sm pt-10">
                 <Link href={{pathname: "/"}}>
-                    <Image 
+                    <Image
                         src="/exekaliburr-icon.svg"
                         alt={""}
                         width={50}
@@ -75,16 +75,16 @@ export default function ResultPage(){
                     </div>
                     <IoInformationCircleOutline className="text-blue-500 ml-3" size={25}/>
                     <div className="ml-3 w-full">
-                        <div 
+                        <div
                             className="text-gray-400 bg-slate-700 w-full"
                         >{oldSearch}
                         </div>
                     </div>
                 </div>
-                <CustonButton onClick={() => {/*DO NOTHING*/}}>
+                <CustomButton onClick={() => {/*DO NOTHING*/}}>
                     <p>DOWNLOAD DA ANÁLISE</p>
                     <MdOutlineFileDownload className="ml-3" size={25}/>
-                </CustonButton>
+                </CustomButton>
             </header>
             <div className="w-full h-full pl-10 pr-10">
                 <div className="flex flex-row mt-7">
@@ -109,7 +109,7 @@ export default function ResultPage(){
                     </section>
                 </div>
             </div>
-            <CustonFooter/>
+            <CustomFooter/>
         </main>
     );
 }

@@ -5,8 +5,8 @@ import Image from "next/image";
 import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
 import { useState } from "react";
 import Link from 'next/link'
-import CustonFooter from "./components/custonFooter";
-import CustonButton from "./components/custonButton";
+import CustomFooter from "./components/customFooter";
+import CustomButton from "./components/customButton";
 
 export default function HomePage(){
     const router = useRouter()
@@ -17,9 +17,9 @@ export default function HomePage(){
     const options = ["https", "http"]
 
     const optionsStyle = `${isOpen || "invisible"} absolute h-fit w-fit bg-white border rounded-md translate-y-11 -translate-x-6 p-3`
-    
+
     const listElements = options.map((value) => <li key={value}>
-        <button 
+        <button
             onClick={()=>{
                 setOptionSelected(value)
                 setIsOpen(false)
@@ -32,14 +32,14 @@ export default function HomePage(){
 
     return(
         <main className="flex flex-col min-h-screen bg-slate-800 items-center justify-center relative">
-            <Image 
+            <Image
                 src="/exekaliburr-logo-full.svg"
                 alt={""}
                 width={200}
                 height={24}
                 priority
             />
-            <form 
+            <form
                 className="w-1/3 flex flex-col items-center justify-center text-sm pt-10"
                 onSubmit={(e) => {
                     e.preventDefault()
@@ -49,20 +49,20 @@ export default function HomePage(){
                     <div className="pr-5 pl-3 border-r-2 flex flex-row text-blue-500 relative">
                         <p>{optionSelected}</p>
                         <button type='button' className="ml-2" onClick={() => setIsOpen(!isOpen)}>
-			                {isOpen ? <MdArrowDropUp size={23}/> : <MdArrowDropDown size={23}/>}
-		                </button>
+                            {isOpen ? <MdArrowDropUp size={23}/> : <MdArrowDropDown size={23}/>}
+                        </button>
                         <ul className={optionsStyle}>{listElements}</ul>
                     </div>
                     <IoMdSearch className="text-blue-500 ml-3" size={25}/>
-                    <input 
+                    <input
                         className="text-gray-400 bg-slate-600 w-full ml-3"
                         placeholder="Insira a URL que você deseja escanear"
                         value={inputValue}
-                         onChange={(e) => { setInputValue(e.target.value) }}
+                        onChange={(e) => { setInputValue(e.target.value) }}
                     >
                     </input>
                 </div>
-                <Link 
+                <Link
                     href={{
                         pathname:'/result',
                         query: {
@@ -72,19 +72,12 @@ export default function HomePage(){
                     }}
                     className="mt-10"
                 >
-                    <CustonButton onClick={() => {/*DO NOTHING*/}}>
+                    <CustomButton onClick={() => {/*DO NOTHING*/}}>
                         REALIZAR ANÁLISE
-                    </CustonButton>
+                    </CustomButton>
                 </Link>
             </form>
-            <CustonFooter/>
+            <CustomFooter/>
         </main>
     );
 }
-
-// {<button 
-//     className="text-white bg-gradient-to-r from-cyan-500 to-purple-700 w-fit mt-10 p-3 rounded-md"
-//     onClick={() => {/*DO NOTHING*/}}
-// >
-//     REALIZAR ANÁLISE
-// </button>}

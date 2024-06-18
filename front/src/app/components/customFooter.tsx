@@ -1,4 +1,4 @@
-export default function CustonFooter(){
+export default function CustomFooter(){
     return (
         <footer className="absolute bottom-0 bg-slate-900 text-white w-full h-14 flex flex-row items-center justify-between text-sm">
             <div></div>

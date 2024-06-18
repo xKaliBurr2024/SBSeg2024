@@ -1,15 +1,13 @@
-import { ReactNode } from "react";
+import { ButtonHTMLAttributes } from "react"
 
-interface ICustomButtonProps{
-    children: ReactNode
-    onClick?: VoidFunction
-}
+export default function CustomButton({ children, className, ...props }: ButtonHTMLAttributes<HTMLButtonElement>) {
+    const classes = `text-white bg-gradient-to-r from-cyan-500 to-purple-700 items-center w-fit p-3 rounded-md flex flex-row ${className}`
 
-export default function CustomButton({children, onClick}: ICustomButtonProps){
     return (
         <button
-            className="text-white bg-gradient-to-r from-cyan-500 to-purple-700 items-center w-fit p-3 rounded-md flex flex-row"
-            onClick={onClick}
+            className={classes}
+            type="button"
+            {...props}
         >
             {children}
         </button>

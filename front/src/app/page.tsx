@@ -1,12 +1,11 @@
-'use client';
-import { IoMdSearch } from "react-icons/io";
+'use client'
+import Image from "next/image"
+import { IoMdSearch } from "react-icons/io"
 import { useRouter } from 'next/navigation'
-import Image from "next/image";
-import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md";
-import { useState } from "react";
-import Link from 'next/link'
-import CustomFooter from "./components/customFooter";
-import CustomButton from "./components/customButton";
+import { MdArrowDropDown, MdArrowDropUp } from "react-icons/md"
+import { useState } from "react"
+import CustomFooter from "@/app/components/customFooter"
+import CustomButton from "@/app/components/customButton"
 
 export default function HomePage(){
     const router = useRouter()
@@ -15,16 +14,15 @@ export default function HomePage(){
     const [inputValue, setInputValue] = useState("")
 
     const options = ["https", "http"]
-
-    const optionsStyle = `${isOpen || "invisible"} absolute h-fit w-fit bg-white border rounded-md translate-y-11 -translate-x-6 p-3`
+    const optionsStyle = `${isOpen || "hidden"} absolute h-fit w-fit bg-white border rounded-md translate-y-20 -translate-x-6 p-3`
 
     const listElements = options.map((value) => <li key={value}>
         <button
-            onClick={()=>{
+            onClick={() => {
                 setOptionSelected(value)
                 setIsOpen(false)
             }}
-            className={`pl-5 pr-5 pb-2 pt-2 ${value == 'https' ? 'border-b-2 border-black': ''} ${value == optionSelected ? 'text-blue-500' : 'text-black'}`}
+            className={`pl-5 pr-5 pb-2 pt-2 flex items-center ${value == optionSelected ? 'text-blue-500' : 'text-black'}`}
         >
             {value}
         </button>
@@ -34,50 +32,39 @@ export default function HomePage(){
         <main className="flex flex-col min-h-screen bg-slate-800 items-center justify-center relative">
             <Image
                 src="/exekaliburr-logo-full.svg"
-                alt={""}
+                alt="logo"
                 width={200}
                 height={24}
                 priority
             />
             <form
-                className="w-1/3 flex flex-col items-center justify-center text-sm pt-10"
+                className="flex flex-col items-center justify-center text-sm pt-10 gap-2"
                 onSubmit={(e) => {
                     e.preventDefault()
                 }}
             >
-                <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3 w-full">
-                    <div className="pr-5 pl-3 border-r-2 flex flex-row text-blue-500 relative">
+                <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3">
+                    <div className="pr-5 pl-3 border-r-2 flex flex-row text-blue-500 w-[100px] relative">
                         <p>{optionSelected}</p>
                         <button type='button' className="ml-2" onClick={() => setIsOpen(!isOpen)}>
                             {isOpen ? <MdArrowDropUp size={23}/> : <MdArrowDropDown size={23}/>}
                         </button>
                         <ul className={optionsStyle}>{listElements}</ul>
                     </div>
-                    <IoMdSearch className="text-blue-500 ml-3" size={25}/>
+                    <IoMdSearch className="text-blue-500 ml-3 min-w-[25px]" size={25} />
                     <input
-                        className="text-gray-400 bg-slate-600 w-full ml-3"
+                        className="text-gray-400 bg-slate-600 ml-3"
                         placeholder="Insira a URL que você deseja escanear"
                         value={inputValue}
                         onChange={(e) => { setInputValue(e.target.value) }}
                     >
                     </input>
                 </div>
-                <Link
-                    href={{
-                        pathname:'/result',
-                        query: {
-                            option: optionSelected,
-                            search: inputValue,
-                        }
-                    }}
-                    className="mt-10"
-                >
-                    <CustomButton onClick={() => {/*DO NOTHING*/}}>
-                        REALIZAR ANÁLISE
-                    </CustomButton>
-                </Link>
+                <CustomButton onClick={() => router.push(`/result?option=${optionSelected}&search=${inputValue}`)}>
+                    REALIZAR ANÁLISE
+                </CustomButton>
             </form>
             <CustomFooter/>
         </main>
-    );
+    )
 }

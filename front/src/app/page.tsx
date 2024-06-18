@@ -30,10 +30,10 @@ export default function HomePage(){
 
     return(
         <main className="flex flex-col min-h-screen bg-slate-800 items-center justify-center relative">
-            <Image
-                src="/exekaliburr-logo-full.svg"
-                alt="logo"
-                width={200}
+            <Image 
+                src="/xkaliburr_logo.svg"
+                alt={""}
+                width={250}
                 height={24}
                 priority
             />

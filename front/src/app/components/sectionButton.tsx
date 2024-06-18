@@ -1,18 +1,19 @@
 import { ReactNode } from "react";
+import { Sections } from "../result/page";
 
 interface ISectionButtonProps{
-    flag: boolean
+    flag: Sections
     onClick: VoidFunction
-    children: ReactNode
+    sectionType: Sections
 }
 
-export default function SectionButton({flag, onClick, children}: ISectionButtonProps){
+export default function SectionButton({flag, onClick, sectionType}: ISectionButtonProps){
     return(
         <button 
-            className={`p-5 text-white rounded-md border border-blue-500 ${flag? "bg-blue-500" :"bg-slate-700"} mr-10`}
+            className={`p-5 text-white rounded-md border border-blue-500 ${flag == sectionType? "bg-blue-500" :"bg-slate-700"} mr-10`}
             onClick={() => onClick()}
         >
-            {children}
+            {sectionType}
         </button>
     );
 }

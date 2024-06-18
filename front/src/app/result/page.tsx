@@ -11,6 +11,7 @@ import CustomButton from "../components/customButton";
 import SectionButton from "../components/sectionButton";
 import { RunAllScan } from "@/api/run_all_scan";
 import IpSection from "../components/ipSection";
+import SectionInfo from "../components/sectionInfo";
 
 //Remover depois
 const auxText = `Lorem ipsum dolor sit amet. Est delectus quisquam 33 consequatur voluptas aut itaque animi rem aliquam reprehenderit 33 ullam necessitatibus sed neque repudiandae. Vel quia ducimus et rerum comodi qui nostrum fuga aut nemo praesentium qui inventore ducimus. Aut sint quia qui magnam impedit est accusamus libero sed officiis doloribus hic odio dolorum sed repellat molestiae qui impedit pariatur. Est totam nulla eos voluptatem culpa aut necessitatibus praesentium id temporibus iusto. Ex nemo aperiam qui reprehenderit facilis non doloribus voluptatem aut fugiat sint quo nobis illum. Sit unde ipsa sit dolorem aliquam non similique quae non dignissimos consequatur nam similique assumptionnda est perferendis cumque? Non sapiente sequi ut explicabo repellendus et sint labore.`
@@ -25,13 +26,16 @@ export enum Sections {
 export default function ResultPage(){
     const searchParams = useSearchParams();
     const [section, setSection] = useState(Sections.GeneralInfo)
-    const [title1, setTitle1] = useState("Identificação de Endereço IP");
-    const [title2, setTitle2] = useState("Informações Gerais do Domínio");
-    const [text1, setText1] = useState("1 " + auxText);
-    const [text2, setText2] = useState("1 " + auxText);
     const [isLoading, setIsLoading] = useState(true)
-    const [data, setData] = useState<string[]>([])
     const [ip, setIp] = useState("")
+    const [data, setData] = useState({
+        reverseDNS: "",
+        subDNS: "",
+        whoIs: "",
+        banner: "",
+        directoryScan: "",
+        ports: ""
+    })
 
     const optionSelected = searchParams.get('option') as 'http' | 'https'
     const oldSearch = searchParams.get('search')
@@ -39,9 +43,15 @@ export default function ResultPage(){
     useEffect(() => {
         const fetchData = async () => {
             const {promises, ip} = await RunAllScan(oldSearch!, optionSelected)
-            if(promises.length > 0){
-                let aux = await Promise.all(promises)
-                setData(await Promise.all(aux.map((value) => value.text())))
+            if(promises){
+                setData({
+                    reverseDNS: await (await promises.reverseDNS).text(),
+                    subDNS: await (await promises.subDNS).text(),
+                    whoIs: await (await promises.whoIs).text(),
+                    banner: await (await promises.banner).text(),
+                    directoryScan: await (await promises.directoryScan).text(),
+                    ports: await (await promises.ports).text()
+                })
                 setIp(ip)
                 setIsLoading(false)
             }
@@ -50,23 +60,11 @@ export default function ResultPage(){
         fetchData()
     }, [oldSearch, optionSelected])
 
-    function changeTitle(value: number){
-        if(value == 1){
-            setTitle1("Identificação de Endereço IP")
-            setTitle2("Informações Gerais do Domínio")
-            setText1("1 " + auxText)
-            setText2("1 " + auxText)
-        }else if(value == 2){
-            setTitle1("Scanner de Portas de Redes")
-            setTitle2("Varredura de Diretórios")
-            setText1("2 " + auxText)
-            setText2("2 " + auxText)
-        }else if(value == 3){
-            setTitle1("DNS Reverso do Domínio")
-            setTitle2("Sub-DNS & Sistemas Integrados")
-            setText1("3 " + auxText)
-            setText2("3 " + auxText)
-        }
+    const infoText = () => {
+        if(section == Sections.GeneralInfo){return data.whoIs}
+        if(section == Sections.Directories){return data.directoryScan}
+        if(section == Sections.Services){return data.ports}
+        if(section == Sections.Neighbors){return data.reverseDNS}
     }
 
     function btnClick(value: Sections){
@@ -97,10 +95,10 @@ export default function ResultPage(){
                             </div>
                         </div>
                     </div>
-                    <CustonButton onClick={() => {/*DO NOTHING*/}}>
+                    <CustomButton onClick={() => {/*DO NOTHING*/}}>
                         <p>DOWNLOAD DA ANÁLISE</p>
                         <MdOutlineFileDownload className="ml-3" size={25}/>
-                    </CustonButton>
+                    </CustomButton>
                 </header>
                 <div className="w-full h-full pl-10 pr-10">
                     <div className="flex flex-row mt-7">
@@ -110,18 +108,12 @@ export default function ResultPage(){
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Neighbors)} sectionType={Sections.Neighbors}/>
                     </div>
                     <div className="bg-slate-900 mt-10 divide-y divide-blue-500 p-10">
-                        <IpSection alias={oldSearch!} ip={ip} info={data[1]}/>
-                        <section className="mb-7">
-                            <h1 className="text-blue-500 text-2xl font-bold mb-5">{title1}</h1>
-                            <p className="text-white">{text1}</p>
-                        </section>
-                        <section className="pt-7">
-                            <h1 className="text-blue-500 text-2xl font-bold mb-5">{title2}</h1>
-                            <p className="text-white">{text2}</p>
-                        </section>
+                        <IpSection alias={oldSearch!} ip={ip} info={data.subDNS}/>
+                        <SectionInfo sectionType={section} info={infoText()!}/>
+                        {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} banner={true}/> : <></>}
                     </div>
                 </div>
-                <CustonFooter/>
+                <CustomFooter/>
             </main>
         }</>
     );

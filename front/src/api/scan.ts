@@ -13,8 +13,8 @@ export function getReverseDNS(ip: string) {
 }
 
 export function getSubDNS(host: string) {
-    // return customFetch(`/sub_dns?host=${host}`, {method: 'GET'})
-    return {text: () => "Testando"}
+    return customFetch(`/sub_dns?host=${host}`, {method: 'GET'})
+    // return {text: () => "Testando"}
 }
 
 export function getWhoIs(ip: string) {
@@ -26,8 +26,8 @@ export function getBanner(url: string) {
 }
 
 export function getDirectoryScan(ip: string) {
-    // return customFetch(`/directory_scan?ip=${ip}`, {method: 'GET'})
-    return {text: () => "Testando2"}
+    return customFetch(`/directory_scan?ip=${ip}`, {method: 'GET'})
+    // return {text: () => "Testando2"}
 }
 
 export function getPorts(ip: string) {

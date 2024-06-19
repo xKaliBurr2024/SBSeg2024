@@ -1,4 +1,3 @@
-import { Sections } from "../result/page";
 import { MdTravelExplore } from "react-icons/md";
 
 

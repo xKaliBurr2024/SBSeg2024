@@ -12,9 +12,7 @@ import SectionButton from "../components/sectionButton";
 import { RunAllScan } from "@/api/run_all_scan";
 import IpSection from "../components/ipSection";
 import SectionInfo from "../components/sectionInfo";
-
-//Remover depois
-const auxText = `Lorem ipsum dolor sit amet. Est delectus quisquam 33 consequatur voluptas aut itaque animi rem aliquam reprehenderit 33 ullam necessitatibus sed neque repudiandae. Vel quia ducimus et rerum comodi qui nostrum fuga aut nemo praesentium qui inventore ducimus. Aut sint quia qui magnam impedit est accusamus libero sed officiis doloribus hic odio dolorum sed repellat molestiae qui impedit pariatur. Est totam nulla eos voluptatem culpa aut necessitatibus praesentium id temporibus iusto. Ex nemo aperiam qui reprehenderit facilis non doloribus voluptatem aut fugiat sint quo nobis illum. Sit unde ipsa sit dolorem aliquam non similique quae non dignissimos consequatur nam similique assumptionnda est perferendis cumque? Non sapiente sequi ut explicabo repellendus et sint labore.`
+import Hint from "../components/hint";
 
 export enum Sections {
     GeneralInfo = "INFORMAÇÕES GERAIS",
@@ -71,9 +69,9 @@ export default function ResultPage(){
         setSection(value)
     }
 
-    return(<>{ isLoading ? <Loading/> :
+    return(<>{ isLoading ? <Loading domainName={oldSearch!}/> :
             <main className="min-h-screen bg-slate-800 relative">
-                <header className="flex flex-row justify-around text-sm pt-10">
+                <header className="flex flex-row justify-between text-sm pt-10 pl-10 pr-10">
                     <Link href={{pathname: "/"}}>
                         <Image 
                             src="/exekaliburr-icon.svg"
@@ -83,7 +81,7 @@ export default function ResultPage(){
                             priority
                         />
                     </Link>
-                    <div className="flex flex-row border border-white items-center rounded-md bg-slate-700 p-3 w-3/4">
+                    <div className="flex flex-row border border-white items-center rounded-md bg-slate-700 p-3 w-2/3">
                         <div className="pr-5 border-r-2">
                             <p className="text-blue-500">{optionSelected}</p>
                         </div>
@@ -107,10 +105,13 @@ export default function ResultPage(){
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Services)} sectionType={Sections.Services}/>
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Neighbors)} sectionType={Sections.Neighbors}/>
                     </div>
-                    <div className="bg-slate-900 mt-10 divide-y divide-blue-500 p-10">
-                        <IpSection alias={oldSearch!} ip={ip} info={data.subDNS}/>
-                        <SectionInfo sectionType={section} info={infoText()!}/>
-                        {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} banner={true}/> : <></>}
+                    <div className="flex flex-row mt-10 justify-between">
+                        <div className="bg-slate-900 divide-y divide-blue-500 p-10 rounded-md w-full">
+                            <IpSection alias={oldSearch!} ip={ip} info={data.subDNS}/>
+                            <SectionInfo sectionType={section} info={infoText()!}/>
+                            {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} banner={true}/> : <></>}
+                        </div>
+                        <Hint sectionType={section}/>
                     </div>
                 </div>
                 <CustomFooter/>

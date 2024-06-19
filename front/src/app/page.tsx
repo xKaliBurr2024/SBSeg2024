@@ -43,7 +43,7 @@ export default function HomePage(){
                     e.preventDefault()
                 }}
             >
-                <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3">
+                <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3 mb-5 w-full">
                     <div className="pr-5 pl-3 border-r-2 flex flex-row text-blue-500 w-[100px] relative">
                         <p>{optionSelected}</p>
                         <button type='button' className="ml-2" onClick={() => setIsOpen(!isOpen)}>
@@ -53,7 +53,7 @@ export default function HomePage(){
                     </div>
                     <IoMdSearch className="text-blue-500 ml-3 min-w-[25px]" size={25} />
                     <input
-                        className="text-gray-400 bg-slate-600 ml-3"
+                        className="text-gray-400 bg-slate-600 ml-3 w-[300px]"
                         placeholder="Insira a URL que você deseja escanear"
                         value={inputValue}
                         onChange={(e) => { setInputValue(e.target.value) }}

@@ -1,6 +1,10 @@
 import Image from "next/image";
 
-export default function Loading(){
+interface ILoadingProps{
+    domainName: string
+}
+
+export default function Loading({domainName}: ILoadingProps){
     return (
         <main className="min-h-screen bg-slate-800 flex flex-col items-center justify-center text-white">
             <Image 
@@ -10,18 +14,26 @@ export default function Loading(){
                 height={24}
                 priority
             />
-            <h1 className="text-xl mb-3 mt-7">Aguarde, realizando análise...</h1>
+            <div className="flex flex-row items-end text-xl mb-3 mt-7">
+                <h1>Aguarde, realizando análise</h1>
+                <p className="animate-pulse">...</p>
+            </div>
             <h2>Endereço da análise:</h2>
-            <p className="mb-3">URL</p>
-            <p className="text-9xl mb-10">70%</p>
+            <p className="mb-3">{domainName}</p>
             <Image 
+                className="motion-safe:animate-spin"
                 src="/loading.svg"
                 alt={""}
                 width={70}
                 height={24}
                 priority
             />
-            <p className="mt-5">Analisando DNS</p>
+            <div className="flex flex-row items-end">
+                <p className="mt-5">Analisando DNS</p>
+                <p className="animate-pulse">...</p>
+            </div>
         </main>
     );
 }
+
+//<p className="text-9xl mb-10">70%</p>

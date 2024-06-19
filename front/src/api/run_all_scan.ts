@@ -1,4 +1,4 @@
-import { getBanner, getDirectoryScan, getIP, getPorts, getReverseDNS, getSubDNS, getWhoIs } from "./scan"
+import { getBanner, getDirectoryScan, getIP, getPorts, getReverseDNS, getSubDNS, getWhatweb, getWhoIs } from "./scan"
 
 export async function RunAllScan(input: string, protocol: 'http' | 'https') {
     const url = `${protocol}://${input}`
@@ -6,6 +6,7 @@ export async function RunAllScan(input: string, protocol: 'http' | 'https') {
     const ip = (await (await getIP(host)).text()).split(' ').at(-1)!
 
     const promises = {
+        whatweb: getWhatweb(host),
         reverseDNS: getReverseDNS(ip),
         subDNS: getSubDNS(host),
         whoIs: getWhoIs(ip),

@@ -4,6 +4,10 @@ export function getIP(host: string) {
     return customFetch(`/ip?host=${host}`, {method: 'GET'})
 }
 
+export function getWhatweb(host: string) {
+    return customFetch(`/whatweb?host=${host}`, {method: 'GET'})
+}
+
 export function getReverseDNS(ip: string) {
     return customFetch(`/reverse_dns?ip=${ip}`, {method: 'GET'})
 }

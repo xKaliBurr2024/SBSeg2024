@@ -16,6 +16,16 @@ def get_ip():
     return ip, 200
 
 
+@app.route('/whatweb', methods=['GET'])
+def get_whatweb():
+    host = request.args.get('host', None)
+    if host is None:
+        return 'Please provide a host', 400
+
+    whatweb = getoutput(f'whatweb -v -a 3 --colour=NEVER {host}')
+    return whatweb, 200
+
+
 @app.route('/reverse_dns', methods=['GET'])
 def get_reverse_dns():
     ip = request.args.get('ip', None)

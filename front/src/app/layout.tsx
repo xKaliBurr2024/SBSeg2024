@@ -18,7 +18,7 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={inter.className}>
-        <main className="flex flex-col min-h-[calc(100vh_-_3.5rem)] bg-slate-800 items-center justify-center relative">
+        <main className="flex flex-col min-h-[calc(100vh_-_3.5rem)] p-8 bg-slate-800 items-center justify-center relative">
           {children}
         </main>
         <Footer />

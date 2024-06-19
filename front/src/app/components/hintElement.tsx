@@ -6,9 +6,9 @@ interface IHintElementProps{
 
 export default function HintElement({text}: IHintElementProps){
     return(
-        <div className="flex flex-row w-full mt-5 mb-5">
+        <li className="flex flex-row w-full">
             <GrCircleInformation className="text-white mr-2 min-w-[25px]" size={25}/>
             <p className="w-fit">{text}</p>
-        </div>
+        </li>
     );
 }

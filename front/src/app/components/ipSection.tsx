@@ -22,7 +22,7 @@ export default function IpSection({alias, ip, info}: IIpSectionProps){
                 </div>
             </div>
             <p className="text-white">{subTitle}</p>
-            <p className="text-white">{info}</p>
+            <pre className="text-white">{info}</pre>
         </section>
     );
 }

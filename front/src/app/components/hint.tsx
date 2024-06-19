@@ -47,24 +47,26 @@ export default function Hint({sectionType}: IHintProps){
             if(value == 2){return servicesHint2}
             if(value == 3){return servicesHint3}
         }
-    } 
+    }
 
     return(
-        <section className="fle flex-col w-2/5 h-fit border border-white bg-gradient-to-r from-cyan-500 to-purple-700 rounded-md text-white p-5 ml-10">
+        <section className="flex flex-col w-full border border-white bg-gradient-to-r from-cyan-500 to-purple-700 rounded-md text-white p-5">
             <div className="flex flex-row justify-between">
                 <MdLightbulb className="text-yellow-500" size={25}/>
                 <h2>{"DICAS DE SEGURANÇA"}</h2>
                 <p></p>
             </div>
-            <p className="pt-5 pb-5 text-white">{hintText()}</p>
-            { 
-                sectionType != Sections.Neighbors ? <p className="w-full pl-5 pr-5 pt-3 pb-3 bg-yellow-500 rounded-md text-center text-black font-bold">
+            <p className="py-3 text-white">{hintText()}</p>
+            {
+                sectionType != Sections.Neighbors ? <p className="w-full p-3 bg-yellow-500 rounded-md text-center text-black font-bold">
                     {"ESTEJA ATENTO"}
                 </p> : <></>
             }
-            {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(1)!}/> : <></>}
-            {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(2)!}/> : <></>}
-            {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(3)!}/> : <></>}
+            <ul className="flex flex-col gap-3 mt-3">
+                {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(1)!}/> : <></>}
+                {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(2)!}/> : <></>}
+                {sectionType != Sections.Neighbors ? <HintElement text={hintElementText(3)!}/> : <></>}
+            </ul>
         </section>
     );
 }

@@ -14,10 +14,10 @@ import SectionInfo from "../components/sectionInfo";
 import Hint from "../components/hint";
 
 export enum Sections {
-    GeneralInfo = "INFORMAÇÕES GERAIS",
+    GeneralInfo = "INFORMAÇÕES GERAIS", // Add Whatbew
     Directories = "DIRETÓRIOS E PÁGINAS SENSÍVEIS",
     Services = "SERVIÇOS E PORTAS DE REDE",
-    Neighbors = "DOMÍNIOS VIZINHOS"
+    Neighbors = "DOMÍNIOS VIZINHOS"  // Reverse DNS, Sub DNS
 }
 
 export default function ResultPage(){
@@ -68,9 +68,9 @@ export default function ResultPage(){
         setSection(value)
     }
 
-    return(<>{ isLoading ? <Loading domainName={oldSearch!}/> :
+    return(<>{ false ? <Loading domainName={oldSearch!}/> :
             <>
-                <header className="flex flex-row justify-between text-sm pt-10 pl-10 pr-10">
+                <header className="flex flex-row gap-4 text-sm w-full">
                     <Link href={{pathname: "/"}}>
                         <Image
                             src="/exekaliburr-icon.svg"
@@ -80,7 +80,7 @@ export default function ResultPage(){
                             priority
                         />
                     </Link>
-                    <div className="flex flex-row border border-white items-center rounded-md bg-slate-700 p-3 w-2/3">
+                    <div className="flex flex-row border border-white items-center rounded-md bg-slate-700 p-3 grow">
                         <div className="pr-5 border-r-2">
                             <p className="text-blue-500">{optionSelected}</p>
                         </div>
@@ -97,20 +97,20 @@ export default function ResultPage(){
                         <MdOutlineFileDownload className="ml-3" size={25}/>
                     </CustomButton>
                 </header>
-                <div className="w-full h-full pl-10 pr-10">
-                    <div className="flex flex-row mt-7">
+                <div className="flex flex-col w-full h-full mt-10 gap-6">
+                    <div className="flex flex-row gap-4 overflow-x-auto">
                         <SectionButton flag={section} onClick={() => btnClick(Sections.GeneralInfo)} sectionType={Sections.GeneralInfo}/>
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Directories)} sectionType={Sections.Directories}/>
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Services)} sectionType={Sections.Services}/>
                         <SectionButton flag={section} onClick={() => btnClick(Sections.Neighbors)} sectionType={Sections.Neighbors}/>
                     </div>
-                    <div className="flex flex-row mt-10 justify-between">
+                    <Hint sectionType={section}/>
+                    <div className="flex flex-row justify-between">
                         <div className="bg-slate-900 divide-y divide-blue-500 p-10 rounded-md w-full">
                             <IpSection alias={oldSearch!} ip={ip} info={data.subDNS}/>
                             <SectionInfo sectionType={section} info={infoText()!}/>
                             {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} banner={true}/> : <></>}
                         </div>
-                        <Hint sectionType={section}/>
                     </div>
                 </div>
             </>

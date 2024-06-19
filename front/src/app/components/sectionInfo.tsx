@@ -17,7 +17,7 @@ export default function SectionInfo({sectionType, info, banner}: ISectionInfoPro
     return(
         <section className="pt-7 mb-7">
             <h2 className="text-blue-500 text-2xl font-bold mb-5">{title()}</h2>
-            <p className="text-white">{info}</p>
+            <pre className="text-white overflow-x-auto">{info}</pre>
         </section>
     );
 }

@@ -9,8 +9,8 @@ interface ISectionButtonProps{
 
 export default function SectionButton({flag, onClick, sectionType}: ISectionButtonProps){
     return(
-        <button 
-            className={`p-5 text-white rounded-md border border-blue-500 ${flag == sectionType? "bg-blue-500" :"bg-slate-700"} mr-10`}
+        <button
+            className={`p-5 text-white rounded-md border border-blue-500 grow ${flag == sectionType? "bg-blue-500" :"bg-slate-700"}`}
             onClick={() => onClick()}
         >
             {sectionType}

@@ -14,10 +14,10 @@ import SectionInfo from "../components/sectionInfo";
 import Hint from "../components/hint";
 
 export enum Sections {
-    GeneralInfo = "INFORMAÇÕES GERAIS", // Add Whatbew
+    GeneralInfo = "INFORMAÇÕES GERAIS",
     Directories = "DIRETÓRIOS E PÁGINAS SENSÍVEIS",
     Services = "SERVIÇOS E PORTAS DE REDE",
-    Neighbors = "DOMÍNIOS VIZINHOS"  // Reverse DNS, Sub DNS
+    Neighbors = "DOMÍNIOS VIZINHOS"
 }
 
 export default function ResultPage(){
@@ -26,6 +26,7 @@ export default function ResultPage(){
     const [isLoading, setIsLoading] = useState(true)
     const [ip, setIp] = useState("")
     const [data, setData] = useState({
+        whatweb: "",
         reverseDNS: "",
         subDNS: "",
         whoIs: "",
@@ -42,6 +43,7 @@ export default function ResultPage(){
             const {promises, ip} = await RunAllScan(oldSearch!, optionSelected)
             if(promises){
                 setData({
+                    whatweb: await (await promises.whatweb).text(),
                     reverseDNS: await (await promises.reverseDNS).text(),
                     subDNS: await (await promises.subDNS).text(),
                     whoIs: await (await promises.whoIs).text(),
@@ -68,7 +70,7 @@ export default function ResultPage(){
         setSection(value)
     }
 
-    return(<>{ false ? <Loading domainName={oldSearch!}/> :
+    return(<>{ isLoading ? <Loading domainName={oldSearch!}/> :
             <>
                 <header className="flex flex-row gap-4 text-sm w-full">
                     <Link href={{pathname: "/"}}>
@@ -107,9 +109,10 @@ export default function ResultPage(){
                     <Hint sectionType={section}/>
                     <div className="flex flex-row justify-between">
                         <div className="bg-slate-900 divide-y divide-blue-500 p-10 rounded-md w-full">
-                            <IpSection alias={oldSearch!} ip={ip} info={data.subDNS}/>
+                            <IpSection alias={oldSearch!} ip={ip} info={data.whatweb} sectionType={section}/>
                             <SectionInfo sectionType={section} info={infoText()!}/>
-                            {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} banner={true}/> : <></>}
+                            {section == Sections.GeneralInfo ? <SectionInfo sectionType={section} info={data.banner} extra={true}/> : <></>}
+                            {section == Sections.Neighbors ? <SectionInfo sectionType={section} info={data.subDNS} extra={true}/> : <></>}
                         </div>
                     </div>
                 </div>

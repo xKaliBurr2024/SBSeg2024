@@ -1,13 +1,15 @@
 import { MdTravelExplore } from "react-icons/md";
+import { Sections } from "../result/page";
 
 
 interface IIpSectionProps{
     alias: string
     ip: string
     info: string
+    sectionType: Sections
 }
 
-export default function IpSection({alias, ip, info}: IIpSectionProps){
+export default function IpSection({alias, ip, info, sectionType}: IIpSectionProps){
     const title = "Identificação de Endereço IP";
     const subTitle = "OUTRAS INFORMAÇÕES RELACIONADAS AOS ENDEREÇAMENTOS IP DO ALVO:";
 
@@ -21,8 +23,8 @@ export default function IpSection({alias, ip, info}: IIpSectionProps){
                     <p>{`Endereço IP Descoberto: ${ip}`}</p>
                 </div>
             </div>
-            <p className="text-white">{subTitle}</p>
-            <pre className="text-white">{info}</pre>
+            {sectionType == Sections.GeneralInfo ? <p className="text-white mb-3">{subTitle}</p> : <></>}
+            {sectionType == Sections.GeneralInfo ? <pre className="text-white overflow-x-auto">{info}</pre> : <></>}
         </section>
     );
 }

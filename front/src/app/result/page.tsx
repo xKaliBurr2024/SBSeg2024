@@ -1,17 +1,16 @@
 'use client';
 import { useState, useEffect } from "react";
 import { IoInformationCircleOutline } from "react-icons/io5";
-import { MdOutlineFileDownload } from "react-icons/md";
 import Image from "next/image";
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Loading from "../components/loading";
-import CustomButton from "../components/customButton";
 import SectionButton from "../components/sectionButton";
 import { RunAllScan } from "@/api/run_all_scan";
 import IpSection from "../components/ipSection";
 import SectionInfo from "../components/sectionInfo";
 import Hint from "../components/hint";
+import ReportButton from "../components/reportButton";
 
 export enum Sections {
     GeneralInfo = "INFORMAÇÕES GERAIS",
@@ -94,10 +93,7 @@ export default function ResultPage(){
                             </div>
                         </div>
                     </div>
-                    <CustomButton onClick={() => {/*DO NOTHING*/}}>
-                        <p>DOWNLOAD DA ANÁLISE</p>
-                        <MdOutlineFileDownload className="ml-3" size={25}/>
-                    </CustomButton>
+                    <ReportButton search={oldSearch!} ip={ip} results={data} />
                 </header>
                 <div className="flex flex-col w-full h-full mt-10 gap-6">
                     <div className="flex flex-row gap-4 overflow-x-auto">

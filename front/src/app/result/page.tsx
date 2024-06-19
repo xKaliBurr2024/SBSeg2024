@@ -6,7 +6,6 @@ import Image from "next/image";
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
 import Loading from "../components/loading";
-import CustomFooter from "../components/customFooter";
 import CustomButton from "../components/customButton";
 import SectionButton from "../components/sectionButton";
 import { RunAllScan } from "@/api/run_all_scan";
@@ -70,10 +69,10 @@ export default function ResultPage(){
     }
 
     return(<>{ isLoading ? <Loading domainName={oldSearch!}/> :
-            <main className="min-h-screen bg-slate-800 relative">
+            <>
                 <header className="flex flex-row justify-between text-sm pt-10 pl-10 pr-10">
                     <Link href={{pathname: "/"}}>
-                        <Image 
+                        <Image
                             src="/exekaliburr-icon.svg"
                             alt={""}
                             width={50}
@@ -87,7 +86,7 @@ export default function ResultPage(){
                         </div>
                         <IoInformationCircleOutline className="text-blue-500 ml-3" size={25}/>
                         <div className="ml-3 w-full">
-                            <div 
+                            <div
                                 className="text-gray-400 bg-slate-700 w-full"
                             >{oldSearch}
                             </div>
@@ -114,8 +113,7 @@ export default function ResultPage(){
                         <Hint sectionType={section}/>
                     </div>
                 </div>
-                <CustomFooter/>
-            </main>
+            </>
         }</>
     );
 }

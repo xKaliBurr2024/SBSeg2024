@@ -6,8 +6,8 @@ interface ILoadingProps{
 
 export default function Loading({domainName}: ILoadingProps){
     return (
-        <main className="min-h-screen bg-slate-800 flex flex-col items-center justify-center text-white">
-            <Image 
+        <>
+            <Image
                 src="/exekaliburr-icon.svg"
                 alt={""}
                 width={70}
@@ -20,7 +20,7 @@ export default function Loading({domainName}: ILoadingProps){
             </div>
             <h2>Endereço da análise:</h2>
             <p className="mb-3">{domainName}</p>
-            <Image 
+            <Image
                 className="motion-safe:animate-spin"
                 src="/loading.svg"
                 alt={""}
@@ -32,8 +32,6 @@ export default function Loading({domainName}: ILoadingProps){
                 <p className="mt-5">Analisando DNS</p>
                 <p className="animate-pulse">...</p>
             </div>
-        </main>
+        </>
     );
 }
-
-//<p className="text-9xl mb-10">70%</p>

@@ -28,11 +28,11 @@ export default function HomePage(){
         </button>
     </li>)
 
-    return(
-        <main className="flex flex-col min-h-screen bg-slate-800 items-center justify-center relative">
-            <Image 
+    return (
+        <>
+            <Image
                 src="/xkaliburr_logo.svg"
-                alt={""}
+                alt="logo"
                 width={250}
                 height={24}
                 priority
@@ -53,7 +53,7 @@ export default function HomePage(){
                     </div>
                     <IoMdSearch className="text-blue-500 ml-3 min-w-[25px]" size={25} />
                     <input
-                        className="text-gray-400 bg-slate-600 ml-3 w-[300px]"
+                        className="text-gray-400 bg-slate-600 ml-3 w-64"
                         placeholder="Insira a URL que você deseja escanear"
                         value={inputValue}
                         onChange={(e) => { setInputValue(e.target.value) }}
@@ -64,7 +64,6 @@ export default function HomePage(){
                     REALIZAR ANÁLISE
                 </CustomButton>
             </form>
-            <CustomFooter/>
-        </main>
+        </>
     )
 }

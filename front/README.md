@@ -27,7 +27,9 @@ Dependencias do next:
 
 ## Executando o Front
 
-Para executar o front basta rodar o comando:
+Para executar o front, você primeiro deve copiar o arquivo .env.template com o nome .env.local, para carregar as variáveis de ambiente no front. Ele já está configurado para se comunicar com a API localmente.
+
+Depois, basta rodar o comando:
 
 ```bash
 docker compose up front

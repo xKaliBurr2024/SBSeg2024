@@ -9,6 +9,8 @@ A ferramenta fornece informações valiosas como:
 * Identificação e versionamento de serviço nas portas de rede.
 * Diretório ocultos.
 
+Veja mais detalhes de [Como xKaliBurr funciona](/docs/workflow.md).
+
 ## Estrutura do Projeto
 
 A nossa ferramenta é composta por uma API e um Front-end web que se comunicam entre si.
@@ -40,7 +42,9 @@ Por fim, também configuramos imagens Docker para facilitar a execução da ferr
 
 Para executar a ferramenta, você precisa ter o docker e o docker-compose instalados em sua máquina. Além disso, caso queria rodar no windows é necessário ativar a feature "host networking" que está em beta.
 
-Para executar a ferramenta, basta rodar o comando:
+Antes de executar a ferramenta, você deve criar um arquivo `.env.local` na pasta `./front/`, pode criá-lo apenas como uma cópia do arquivo `.env.template` que já está pronto pra rodar a ferramenta localmente.
+
+Por fim, para executar a ferramenta basta rodar o comando:
 
 ```bash
 docker compose up

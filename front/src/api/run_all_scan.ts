@@ -6,7 +6,7 @@ export async function RunAllScan(input: string, protocol: 'http' | 'https') {
     const ip = (await (await getIP(host)).text()).split(' ').at(-1)!
 
     const promises = {
-        whatweb: getWhatweb(host),
+        whatweb: getWhatweb(url),
         reverseDNS: getReverseDNS(ip),
         subDNS: getSubDNS(host),
         whoIs: getWhoIs(ip),

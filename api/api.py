@@ -18,11 +18,11 @@ def get_ip():
 
 @app.route('/whatweb', methods=['GET'])
 def get_whatweb():
-    host = request.args.get('host', None)
-    if host is None:
-        return 'Please provide a host', 400
+    url = request.args.get('url', None)
+    if url is None:
+        return 'Please provide a url', 400
 
-    whatweb = getoutput(f'whatweb -v -a 3 --colour=NEVER {host}')
+    whatweb = getoutput(f'whatweb -v -a 3 --colour=NEVER {url}')
     return whatweb, 200
 
 

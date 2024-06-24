@@ -50,6 +50,12 @@ Por fim, para executar a ferramenta basta rodar o comando:
 docker compose up
 ```
 
+caso comando não seja reconhecido, use:
+
+```bash
+docker-compose up
+```
+
 Após a execução do comando, a ferramenta estará disponível em `http://localhost:3000`.
 
 ## Usando a ferramenta

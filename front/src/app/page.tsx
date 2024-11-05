@@ -22,6 +22,7 @@ export default function HomePage(){
                 setIsOpen(false)
             }}
             className={`pl-5 pr-5 pb-2 pt-2 flex items-center ${value == optionSelected ? 'text-blue-500' : 'text-black'}`}
+            type="button"
         >
             {value}
         </button>
@@ -40,6 +41,7 @@ export default function HomePage(){
                 className="flex flex-col items-center justify-center text-sm pt-10 gap-2"
                 onSubmit={(e) => {
                     e.preventDefault()
+                    router.push(`/result?option=${optionSelected}&search=${inputValue}`)
                 }}
             >
                 <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3 mb-5 w-full">
@@ -59,7 +61,7 @@ export default function HomePage(){
                     >
                     </input>
                 </div>
-                <CustomButton onClick={() => router.push(`/result?option=${optionSelected}&search=${inputValue}`)}>
+                <CustomButton type="submit">
                     REALIZAR ANÁLISE
                 </CustomButton>
             </form>

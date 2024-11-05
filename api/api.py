@@ -1,6 +1,6 @@
 from flask_cors import CORS
 from flask import Flask, request
-from subprocess import getoutput
+from subprocess import getoutput, run
 
 
 app = Flask(__name__)
@@ -66,7 +66,9 @@ def get_banner():
     if url is None:
         return 'Please provide a url', 400
 
-    banner = getoutput(f'curl -k -v {url}')
+    result = run(['curl', '-k', '-v', url], capture_output=True, text=True, errors='ignore')
+    banner = f'{result.stderr}\n{result.stdout}'
+
     return banner, 200
 
 
@@ -76,7 +78,7 @@ def get_directory_scan():
     if ip is None:
         return 'Please provide a ip', 400
 
-    directory_scan = getoutput(f'gobuster dir -u {ip} -w directory-list-2.3-medium.txt -b 301,302,403,404')
+    directory_scan = getoutput(f'gobuster dir -u {ip} -w directory-list-2.3-medium.txt -b 301,302,303,403,404')
     return directory_scan, 200
 
 

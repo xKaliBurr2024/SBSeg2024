@@ -74,11 +74,11 @@ def get_banner():
 
 @app.route('/directory_scan', methods=['GET'])
 def get_directory_scan():
-    ip = request.args.get('ip', None)
-    if ip is None:
-        return 'Please provide a ip', 400
+    domain = request.args.get('domain', None)
+    if domain is None:
+        return 'Please provide a domain', 400
 
-    directory_scan = getoutput(f'gobuster dir -u {ip} -w directory-list-2.3-medium.txt -b 301,302,303,403,404')
+    directory_scan = getoutput(f'gobuster dir -u {domain} -w directory-list-2.3-medium.txt -b 301,302,303,403,404')
     return directory_scan, 200
 
 

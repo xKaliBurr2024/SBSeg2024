@@ -1,19 +1,31 @@
 import { getBanner, getDirectoryScan, getIP, getPorts, getReverseDNS, getSubDNS, getWhatweb, getWhoIs } from "./scan"
 
 export async function RunAllScan(input: string, protocol: 'http' | 'https') {
-    const url = `${protocol}://${input}`
-    const host = input.split('/')[0].split(':')[0]
-    const ip = (await (await getIP(host)).text()).split(' ').at(-1)!
+    input = input.replace(/^https?:\/\//, '')
+    const url = new URL(`${protocol}://${input}`)
+    const domain = url.hostname
+    const domainIsIp = isIP(domain)
+
+    const ip = domainIsIp
+        ? domain :
+        await getIP(domain)
+            .then(response => response.text())
+            .then(text => text.split(' ').at(-1)!)
 
     const promises = {
-        whatweb: getWhatweb(url),
+        whatweb: getWhatweb(url.href),
         reverseDNS: getReverseDNS(ip),
-        subDNS: getSubDNS(host),
+        subDNS: getSubDNS(domain),
         whoIs: getWhoIs(ip),
-        banner: getBanner(url),
-        directoryScan: getDirectoryScan(ip),
+        banner: getBanner(url.href),
+        directoryScan: getDirectoryScan(url.origin),
         ports: getPorts(ip)
     }
 
     return { promises, ip }
+}
+
+function isIP(input: string) {
+    const ipRegex = /\d{1,3}(\.\d{1,3}){3}/
+    return ipRegex.test(input)
 }

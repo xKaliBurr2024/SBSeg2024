@@ -24,8 +24,8 @@ export function getBanner(url: string) {
     return customFetch(`/banner?url=${url}`, {method: 'GET'})
 }
 
-export function getDirectoryScan(ip: string) {
-    return customFetch(`/directory_scan?ip=${ip}`, {method: 'GET'})
+export function getDirectoryScan(domain: string) {
+    return customFetch(`/directory_scan?domain=${domain}`, {method: 'GET'})
 }
 
 export function getPorts(ip: string) {

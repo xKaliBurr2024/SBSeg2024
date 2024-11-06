@@ -13,13 +13,11 @@ export default function HomePage(){
     const [inputValue, setInputValue] = useState("")
 
     const options = ["https", "http"]
-    const optionsStyle = `${isOpen || "hidden"} absolute h-fit w-fit bg-white border rounded-md translate-y-20 -translate-x-6 p-3`
 
     const listElements = options.map((value) => <li key={value}>
         <button
             onClick={() => {
                 setOptionSelected(value)
-                setIsOpen(false)
             }}
             className={`pl-5 pr-5 pb-2 pt-2 flex items-center ${value == optionSelected ? 'text-blue-500' : 'text-black'}`}
             type="button"
@@ -29,7 +27,7 @@ export default function HomePage(){
     </li>)
 
     return (
-        <>
+        <div className="self-center flex flex-col items-center">
             <Image
                 src="/xkaliburr_logo.svg"
                 alt="logo"
@@ -44,17 +42,25 @@ export default function HomePage(){
                     router.push(`/result?option=${optionSelected}&search=${inputValue}`)
                 }}
             >
-                <div className="flex flex-row border border-white rounded-md bg-slate-600 p-3 mb-5 w-full">
-                    <div className="pr-5 pl-3 border-r-2 flex flex-row text-blue-500 w-[100px] relative">
+                <div className="flex flex-row gap-3 border border-white rounded-md bg-slate-600 p-3 mb-5 w-full">
+                    <button
+                        type='button'
+                        className="px-1 flex flex-row justify-between text-blue-500 w-[80px] relative"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
                         <p>{optionSelected}</p>
-                        <button type='button' className="ml-2" onClick={() => setIsOpen(!isOpen)}>
-                            {isOpen ? <MdArrowDropUp size={23}/> : <MdArrowDropDown size={23}/>}
-                        </button>
-                        <ul className={optionsStyle}>{listElements}</ul>
-                    </div>
-                    <IoMdSearch className="text-blue-500 ml-3 min-w-[25px]" size={25} />
+                        {isOpen ? <MdArrowDropUp size={23}/> : <MdArrowDropDown size={23}/>}
+                        <ul className={`
+                            ${isOpen || "hidden"} absolute h-fit w-fit bg-white border rounded-md p-3
+                            bottom-0 translate-y-28 left-0 -translate-x-3
+                        `}>
+                            {listElements}
+                        </ul>
+                    </button>
+                    <div className="border-l-2"></div>
+                    <IoMdSearch className="text-blue-500 min-w-[20px]" size={20} />
                     <input
-                        className="text-gray-400 bg-slate-600 ml-3 w-64"
+                        className="text-gray-400 bg-slate-600 w-64"
                         placeholder="Insira a URL que você deseja escanear"
                         value={inputValue}
                         onChange={(e) => { setInputValue(e.target.value) }}
@@ -65,6 +71,6 @@ export default function HomePage(){
                     REALIZAR ANÁLISE
                 </CustomButton>
             </form>
-        </>
+        </div>
     )
 }
